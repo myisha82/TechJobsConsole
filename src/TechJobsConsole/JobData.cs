@@ -38,6 +38,49 @@ namespace TechJobsConsole
             return values;
         }
 
+        public static List<Dictionary<string, string>> FindByValue(string searchTerm)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+
+            // 1. Loop Through All Jobs 
+            foreach (Dictionary<string, string> singleJob in AllJobs)
+            {
+                // 1. Iterate through all columns/keys in singleJob
+                foreach (string colName in singleJob.Keys)
+                { 
+                    string colValue = singleJob[colName];
+                    colValue = colValue.ToLower();
+                    searchTerm = searchTerm.ToLower();
+                    //string employerName = singleJob["employer"];
+                    //string locationName = singleJob["location"];
+                    //string corecompName = singleJob["core competency"];
+                    //string positiontypeName = singleJob["position type"];
+
+                    // 2. Find Jobs that meet search Criteria
+
+                    if (colValue.Contains(searchTerm)) 
+                    
+                        //colValue.Contains(searchTerm) ||
+                        //locationName.Contains(searchTerm) ||
+                        //corecompName.Contains(searchTerm) ||
+                        //positiontypeName.Contains(searchTerm)
+                        
+                    {
+                        jobs.Add(singleJob);
+                    }
+                }
+            } 
+
+            return jobs;  
+        }
+
+
+
+
+
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
             // load data, if not already loaded
@@ -48,6 +91,8 @@ namespace TechJobsConsole
             foreach (Dictionary<string, string> row in AllJobs)
             {
                 string aValue = row[column];
+                aValue = aValue.ToLower();
+                value = value.ToLower();
 
                 if (aValue.Contains(value))
                 {
